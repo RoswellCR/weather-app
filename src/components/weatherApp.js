@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import WeatherForm from './weatherForm';
 import WeatherMainInfo from './weatherMainInfo'
+import styles from './weatherApp.module.css';
+import {TailSpin} from  'react-loader-spinner';
 
 export default function WeatherApp(){
     const [weather,setWeather] = useState(null);
@@ -31,10 +33,11 @@ export default function WeatherApp(){
     }
 
     return(
-        <div>
+        <div className={styles.weatherContainer}>
             <WeatherForm onChangeCity={handleChangeCity}/>
-            <h1>{weather?.current.temp_c}</h1>
-            <WeatherMainInfo weather={weather}/>
+            {weather ?
+             <WeatherMainInfo weather={weather}/> 
+             : <TailSpin color="#00BFFF" height={80} width={80}/>}
         </div>
     )
 }

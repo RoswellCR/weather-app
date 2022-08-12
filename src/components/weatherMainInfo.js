@@ -1,38 +1,32 @@
-import './mapsIFrame.css'
+import styles from './weatherMainInfo.module.css';
 
 export default function WeatherMainInfo({weather}){
     return (
-        <div>
-            <div>{weather?.location.name}</div>
-            <div>{weather?.location.country}</div>
-            <div>
+        <div className={styles.mainInfo}>
+            <div className={styles.city}>{weather?.location.name}</div>
+            <div className={styles.country}>{weather?.location.country}</div>
+            <div className={styles.row}>
                 <div>
                     <img src={`http:${weather?.current.condition.icon}`} 
                         width="128" 
                         alt="forecast icon" />
                 </div>
-                <div>
-                    <div>{weather?.current.condition.text}</div>
-                    <div>{weather?.current.temp_c}º</div>
+                <div className={styles.weatherConditions}>
+                    <div className={styles.condition}>{weather?.current.condition.text}</div>
+                    <div className={styles.current}>{weather?.current.temp_c}º</div>
                 </div>
                 
             </div>
-            {/* <div className="mapouter">
-              <div class="gmap_canvas">
-
-                <iframe 
-                    title='maps'
-                    width="600" 
-                    height="300" 
-                    src="http://maps.google.de/maps?hl=de&q=Pariser Platz, 10117 Berlin+(Brandenburger Tor)&ie=UTF8&t=&z=17&iwloc=B&output=embed" 
-                    frameborder="0" 
-                    scrolling="no" 
-                    marginheight="0" 
-                    marginwidth="0">
-                    <a href="http://www.siteway.de/maps-generator/" title="Google Maps für Ihre Homepage">(c) Homepage Google Maps Generator</a>
-                </iframe>
-              </div>  
-            </div>     */}
+            <iframe 
+                src={`https://maps.google.com/maps?q=${weather?.location.lat},${weather?.location.lon}&t=&z=15&ie=UTF8&iwloc=&output=embed`} 
+                width="100%" 
+                height="450" 
+                style={{border:0}} 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title='map location'>
+            </iframe>
         </div>
     )
 }
